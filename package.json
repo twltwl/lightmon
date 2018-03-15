@@ -1,7 +1,7 @@
 {
   "name": "lightmon",
   "version": "1.0.0",
-  "description": "",
+  "description": "asd",
   "scripts": {
     "start": "node index.js"
   },
