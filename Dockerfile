@@ -1,19 +1,41 @@
-FROM justinribeiro/chrome-headless
+FROM node:8-slim
 
-ARG url
-ENV URL=${URL:-$app}
+RUN apt-get update --fix-missing && apt-get -y upgrade
 
-ARG id
-ENV ID=${ID:-$app}
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+    && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
+    && apt-get update \
+    && apt-get install -y google-chrome-unstable --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /src/*.deb
 
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+ADD https://github.com/Yelp/dumb-init/releases/download/v1.2.0/dumb-init_1.2.0_amd64 /usr/local/bin/dumb-init
+RUN chmod +x /usr/local/bin/dumb-init
 
-COPY package.json /usr/src/app/
-RUN npm install
+ARG CACHEBUST=1
+RUN npm i lighthouse -g
 
-COPY . /usr/src/app
+RUN mkdir -p /usr/src/monitor
+WORKDIR /usr/src/monitor
+
+
+COPY package.json package-lock.json ./
+RUN npm install --production
+
+COPY . ./
+RUN chmod +x index.js
+
+COPY entrypoint.sh ./
+RUN chmod +x entrypoint.sh
+
+RUN groupadd -r chrome && useradd -r -m -g chrome -G audio,video chrome && \
+    mkdir -p /home/chrome/reports && \
+    chown -R chrome:chrome /home/chrome
+
+USER chrome
+
+ENV CI=true
 
 EXPOSE 4711
 
-CMD [ "npm", "start" ]
+ENTRYPOINT ["dumb-init", "--", "/entrypoint.sh"]
