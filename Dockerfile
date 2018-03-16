@@ -15,19 +15,15 @@ RUN chmod +x /usr/local/bin/dumb-init
 ARG CACHEBUST=1
 RUN npm i lighthouse -g
 
-RUN mkdir -p /usr/src/monitor
-WORKDIR /usr/src/monitor
-
-
-COPY package.json package-lock.json ./
+COPY package.json .
 RUN npm install --production
 
-COPY . ./
-RUN chmod +x index.js
+COPY . /
+RUN chmod +x /index.js
 
-COPY entrypoint.sh ./
-RUN chmod +x entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
+# Add a chrome user and setup home dir.
 RUN groupadd -r chrome && useradd -r -m -g chrome -G audio,video chrome && \
     mkdir -p /home/chrome/reports && \
     chown -R chrome:chrome /home/chrome

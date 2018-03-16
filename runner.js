@@ -2,10 +2,10 @@ const { exec } = require("child_process")
 
 const run = async () => new Promise((resolve, reject) => {
     try {
-        console.log(`lighthouse ${process.env.URL} --output json --chrome-flags="--headless"`)
+        console.log(`lighthouse --output json --chrome-flags="--headless" --port=9222 ${process.env.URL}`)
       exec(
-        `lighthouse ${process.env.URL} --output json`,
-        { maxBuffer: 1024 * 500 },
+        `lighthouse --output json --chrome-flags="--headless" --port=9222 ${process.env.URL}`,
+        { maxBuffer: 1024 * 500 * 2 },
         (err, stdout, stderr) => {
           if (err) {
             console.log(err)
