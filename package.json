@@ -12,6 +12,9 @@
       "git add"
     ]
   },
+  "bin": {
+    "lightmon": "./index.js"
+},
   "author": "twl",
   "license": "MIT",
   "dependencies": {
