@@ -1,7 +1,7 @@
 {
   "name": "lightmon",
-  "version": "1.0.0",
-  "description": "asd",
+  "version": "0.1.0",
+  "description": "Monitor your projects lighthouse score",
   "scripts": {
     "start": "node index.js",
     "precommit": "lint-staged"
@@ -13,7 +13,7 @@
     ]
   },
   "author": "twl",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "axios": "^0.18.0",
     "express": "^4.16.3"
