@@ -1,0 +1,14 @@
+{
+  "extends": ["eslint-config-with-prettier"],
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "trailingComma": "none",
+        "bracketSpacing": true,
+        "semi": false,
+        "singleQuote": true
+      }
+    ]
+  }
+}

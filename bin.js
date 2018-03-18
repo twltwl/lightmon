@@ -1,22 +1,29 @@
-const axios = require("axios")
+const axios = require('axios')
 
 const create = async () => {
-  const bin = await axios.post("https://api.jsonbin.io/b",JSON.stringify({ items: [] }), {headers: {
-    "content-type": "application/json"
-  }})
+  const bin = await axios.post(
+    'https://api.jsonbin.io/b',
+    JSON.stringify({ items: [] }),
+    {
+      headers: {
+        'content-type': 'application/json'
+      }
+    }
+  )
 
   return bin.data
 }
 
 const get = async id => {
   const bin = await axios.get(`https://api.jsonbin.io/b/${id}/latest`)
+
   return bin.data
 }
 
 const update = async (id, data) => {
   const bin = await get(id)
 
-  const items = { ...bin }.items
+  const { items } = bin
   items.unshift(data)
   items.length = items.length > 100 ? 100 : items.length
 
@@ -25,7 +32,7 @@ const update = async (id, data) => {
   }
 
   axios.put(`https://api.jsonbin.io/b/${id}`, JSON.stringify(updatedBin), {
-    headers: { "Content-Type": "application/json" }
+    headers: { 'Content-Type': 'application/json' }
   })
 
   return true

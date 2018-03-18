@@ -1,29 +1,28 @@
-const express = require("express")
-const axios = require("axios")
+const express = require('express')
 
-const { fork } = require("child_process")
+const { fork } = require('child_process')
 
-const binHandler = require("./bin")
+const binHandler = require('./bin')
 
 let BIN_ID = process.env.ID
 const port = process.env.PORT || 4711
 
 const app = express()
 
-app.get("/run", async (req, res) => {
-  const runner = fork("runner.js")
-  runner.send("run")
-  runner.on("message", result => {
+app.get('/run', async (req, res) => {
+  const runner = fork('runner.js')
+  runner.send('run')
+  runner.on('message', result => {
     if (result) {
       binHandler.update(BIN_ID, result)
     }
 
     runner.kill()
-    res.end("done")
+    res.end('done')
   })
 })
 
-app.get("/results", async (req, res) => {
+app.get('/results', async (req, res) => {
   const results = await binHandler.get(BIN_ID)
   res.status(200).json(results)
 })
