@@ -9,7 +9,6 @@ let BIN_ID = process.env.ID
 const port = process.env.PORT || 4711
 
 const app = express()
-app.set('view engine', 'pug')
 
 app.get('/run', async (req, res) => {
   const runner = fork('runner.js')
