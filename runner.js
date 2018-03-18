@@ -21,15 +21,20 @@ const run = async () =>
           }
 
           const { audits } = JSON.parse(stdout)
+          console.log(audits)
 
           const results = {
-            'first-meaningful-paint': {
+            firstMeaningfulPaint: {
               score: audits['first-meaningful-paint'].score,
               displayValue: audits['first-meaningful-paint'].displayValue
             },
-            'time-to-first-byte': {
-              score: audits['time-to-first-byte'].score,
-              displayValue: audits['time-to-first-byte'].displayValue
+            firstInteractive: {
+              score: audits['first-interactive'].score,
+              displayValue: audits['first-interactive'].displayValue
+            },
+            consistentlyInteractive: {
+              score: audits['consistently-interactive'].score,
+              displayValue: audits['consistently-interactive'].displayValue
             }
           }
 

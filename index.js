@@ -3,11 +3,13 @@ const express = require('express')
 const { fork } = require('child_process')
 
 const binHandler = require('./bin')
+const resultsView = require('./views/results.js')
 
 let BIN_ID = process.env.ID
 const port = process.env.PORT || 4711
 
 const app = express()
+app.set('view engine', 'pug')
 
 app.get('/run', async (req, res) => {
   const runner = fork('runner.js')
@@ -24,7 +26,8 @@ app.get('/run', async (req, res) => {
 
 app.get('/results', async (req, res) => {
   const results = await binHandler.get(BIN_ID)
-  res.status(200).json(results)
+  console.log(results.items)
+  res.status(200).send(resultsView(results))
 })
 
 app.listen(port, async () => {
