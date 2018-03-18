@@ -10,8 +10,8 @@ services:
       context: .
     environment:
       - PORT=4711
-      - URL=https://google.com
-      - ID=5aac1e35ced79b615475499f
+      - URL=
+      - ID=
     ports:
       - 4711:4711
 
