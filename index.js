@@ -10,21 +10,17 @@ const port = process.env.PORT || 4711
 
 const app = express()
 
-app.get("/start/:id", async (req, res) => {
-  if (BIN_ID === req.params.id) {
-    const runner = fork("runner.js")
-    runner.send("run")
-    runner.on("message", result => {
-      if (result) {
-        binHandler.update(BIN_ID, result)
-      }
+app.get("/run", async (req, res) => {
+  const runner = fork("runner.js")
+  runner.send("run")
+  runner.on("message", result => {
+    if (result) {
+      binHandler.update(BIN_ID, result)
+    }
 
-      runner.kill()
-      res.end("ok")
-    })
-  } else {
-    res.send("no")
-  }
+    runner.kill()
+    res.end("done")
+  })
 })
 
 app.get("/results", async (req, res) => {
@@ -38,10 +34,7 @@ app.listen(port, async () => {
     const bin = await binHandler.create()
     BIN_ID = bin.id
     console.log(
-      `Your app has generated a new ID, please set ID=${BIN_ID} before next launch.
-      
-      To trigger a new test - curl host/${BIN_ID}
-      `
+      `Your app has generated a new ID, please set ID=${BIN_ID} before next launch.`
     )
   }
 })

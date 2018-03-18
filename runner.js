@@ -26,7 +26,6 @@ const run = async () => new Promise((resolve, reject) => {
           }
   
           resolve(results)
-          // send to https://jsonbin.io/api-reference#api-v2-update
         }
       )
     } catch (e) {
