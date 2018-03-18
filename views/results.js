@@ -6,6 +6,14 @@ const head = `
       box-sizing:border-box;
     }
 
+    .root{
+      display:flex;
+    }
+
+    ul{
+      flex:1;
+    }
+
     li {
       display:flex;
       list-style:none;
@@ -34,8 +42,18 @@ const head = `
       border:1px solid rgb(223, 51, 47);
       background:rgb(255, 204, 210);
     }
+
+    #chart{
+      flex:0.5;
+      height:100%;
+    }
     
   </style>
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 `
 
 const className = value =>
@@ -67,6 +85,18 @@ const renderMeasurement = obj => {
   return html
 }
 
+const chartData = items => {
+  const data = []
+  items.map(item => {
+    data.push({
+      score: item.firstMeaningfulPaint.score,
+      x: ''
+    })
+  })
+
+  return data
+}
+
 module.exports = ({ items }) => `
     <!DOCTYPE html />
     <html>
@@ -74,16 +104,32 @@ module.exports = ({ items }) => `
         ${head}
       </head>
       <body>
-        <ul>
-          ${items
-            .map(
-              resultObj =>
-                `<li>
-              ${renderMeasurement(resultObj)}
-            </li>`
-            )
-            .join('')}
-        </ul>
+        <div class="root">
+          <ul>
+            ${items
+              .map(
+                resultObj =>
+                  `<li>
+                ${renderMeasurement(resultObj)}
+              </li>`
+              )
+              .join('')}
+          </ul>
+          <div id="chart"></div>
+        </div>
+        <script>
+        new Morris.Bar({
+          element: 'chart',
+          data: ${JSON.stringify(chartData(items))},
+          // The name of the data record attribute that contains x-values.
+          xkey: 'x',
+          // A list of names of data record attributes that contain y-values.
+          ykeys: ['score'],
+          // Labels for the ykeys -- will be displayed when you hover over the
+          // chart.
+          labels: ['score']
+        });
+        </script>
       </body>
     </html>
   `
