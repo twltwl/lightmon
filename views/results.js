@@ -50,19 +50,19 @@ const renderMeasurement = obj => {
     consistentlyInteractive
   } = obj
 
-  html += `<div class="${className(
-    firstMeaningfulPaint
-  )}">First meaningful paint ${firstMeaningfulPaint.displayValue} ${
+  html += `<div class="${className(firstMeaningfulPaint)}"><strong>${
     firstMeaningfulPaint.score
-  }</div>`
+  }</strong> First meaningful paint ${firstMeaningfulPaint.displayValue} </div>`
 
-  html += `<div class="${className(firstInteractive)}">First interactive${
-    firstInteractive.displayValue
-  }</div>`
+  html += `<div class="${className(firstInteractive)}"><strong>${
+    firstInteractive.score
+  }</strong> First interactive${firstInteractive.displayValue}</div>`
 
-  html += `<div class="${className(
-    consistentlyInteractive
-  )}">Consistently interactive ${consistentlyInteractive.displayValue}</div>`
+  html += `<div class="${className(consistentlyInteractive)}"><strong>${
+    consistentlyInteractive.score
+  }</strong> Consistently interactive ${
+    consistentlyInteractive.displayValue
+  }</div>`
 
   return html
 }

@@ -21,7 +21,6 @@ const run = async () =>
           }
 
           const { audits } = JSON.parse(stdout)
-          console.log(audits)
 
           const results = {
             firstMeaningfulPaint: {
