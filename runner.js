@@ -12,7 +12,7 @@ const run = async () =>
         `lighthouse --output json --chrome-flags="--headless" --port=9222 ${
           process.env.URL
         }`,
-        { maxBuffer: 1024 * 500 * 2 },
+        { maxBuffer: 1024 * 1000 * 10 },
         (err, stdout, stderr) => {
           if (err) {
             console.log(err)

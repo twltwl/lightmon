@@ -25,7 +25,6 @@ app.get('/run', async (req, res) => {
 
 app.get('/results', async (req, res) => {
   const results = await binHandler.get(BIN_ID)
-  console.log(results.items)
   res.status(200).send(resultsView(results))
 })
 
