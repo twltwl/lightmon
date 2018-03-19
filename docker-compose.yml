@@ -2,16 +2,12 @@ version: "3"
 services:
   monitor:
     image: lightmon
-    cap_add:
-      - ALL
-    privileged:
-      true
     build:
       context: .
     environment:
       - PORT=4711
-      - URL=
-      - ID=
+      - URL=https://google.com
+      - ID=5aafb4bdb21413614e8ffc91
     ports:
       - 4711:4711
 

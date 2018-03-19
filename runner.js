@@ -4,12 +4,12 @@ const run = async () =>
   new Promise((resolve, reject) => {
     try {
       console.log(
-        `lighthouse --output json --chrome-flags="--headless" --port=9222 --no-sandbox ${
+        `lighthouse --output json --chrome-flags="--headless" --port=9222 --disable-setuid-sandbox --no-sandbox ${
           process.env.URL
         }`
       )
       exec(
-        `lighthouse --output json --chrome-flags="--headless" --port=9222 --no-sandbox ${
+        `lighthouse --output json --chrome-flags="--headless" --port=9222 --disable-setuid-sandbox --no-sandbox ${
           process.env.URL
         }`,
         { maxBuffer: 1024 * 1000 * 10 },
