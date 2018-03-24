@@ -65,8 +65,17 @@ const renderMeasurement = obj => {
   const {
     firstMeaningfulPaint,
     firstInteractive,
-    consistentlyInteractive
+    consistentlyInteractive,
+    data
   } = obj
+
+  const dataCol =
+    (data &&
+      data.commit &&
+      `<div class="column"><strong>${data.commit}</strong></div>`) ||
+    ''
+
+  html += dataCol
 
   html += `<div class="${className(firstMeaningfulPaint)}"><strong>${
     firstMeaningfulPaint.score
