@@ -25,15 +25,15 @@ const run = async () =>
           const results = {
             firstMeaningfulPaint: {
               score: audits['first-meaningful-paint'].score,
-              displayValue: audits['first-meaningful-paint'].displayValue
+              displayValue: audits['first-meaningful-paint'].rawValue.toFixed(0) + ' ms'
             },
             firstInteractive: {
               score: audits['first-cpu-idle'].score,
-              displayValue: audits['first-cpu-idle'].displayValue
+              displayValue: audits['first-cpu-idle'].rawValue.toFixed(0) + ' ms'
             },
             consistentlyInteractive: {
               score: audits['interactive'].score,
-              displayValue: audits['interactive'].displayValue
+              displayValue: audits['interactive'].rawValue.toFixed(0) + ' ms'
             }
           }
 
