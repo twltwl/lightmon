@@ -28,8 +28,8 @@ const run = async () =>
               displayValue: audits['first-meaningful-paint'].displayValue
             },
             firstInteractive: {
-              score: audits['first-interactive'].score,
-              displayValue: audits['first-interactive'].displayValue
+              score: audits['first-cpu-idle'].score,
+              displayValue: audits['first-cpu-idle'].displayValue
             },
             consistentlyInteractive: {
               score: audits['consistently-interactive'].score,
