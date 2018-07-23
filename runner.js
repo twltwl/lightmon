@@ -32,8 +32,8 @@ const run = async () =>
               displayValue: audits['first-cpu-idle'].displayValue
             },
             consistentlyInteractive: {
-              score: audits['consistently-interactive'].score,
-              displayValue: audits['consistently-interactive'].displayValue
+              score: audits['interactive'].score,
+              displayValue: audits['interactive'].displayValue
             }
           }
 
